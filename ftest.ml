@@ -1,10 +1,11 @@
 open Gfile
 open Tools
+open Ford_fulkerson
 
 let () =
 
   (* Check the number of command-line arguments *)
-  if Array.length Sys.argv <> 5 then
+  if Array.length Sys.argv <> 6 then
     begin
       Printf.printf "\nUsage: %s infile source sink outfile\n\n%!" Sys.argv.(0) ;
       exit 0
@@ -15,6 +16,7 @@ let () =
 
   let infile = Sys.argv.(1)
   and outfile = Sys.argv.(4)
+  and formatted_file = Sys.argv.(5)
 
   (* These command-line arguments are not used for the moment. *)
   and _source = int_of_string Sys.argv.(2)
@@ -22,10 +24,16 @@ let () =
   in
 
   (* Open file *)
-  let graph_of_int = gmap (from_file infile) (fun s -> int_of_string s) in
-  let graph = gmap (add_arc graph_of_int 3 5 5) (fun s -> string_of_int s) in
+  let graph = init (from_file infile) in
+  let graph_str = gmap graph (fun (a,b) -> "(" ^ string_of_int a ^"," ^ string_of_int b ^")") in
 
   (* Rewrite the graph that has been read. *)
-  let () = write_file outfile graph in
+  let () = write_file outfile graph_str in
+
+  () ;
+
+  let () = export graph_str formatted_file in
 
   ()
+
+    
