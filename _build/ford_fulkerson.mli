@@ -4,7 +4,7 @@ open Graph
    @param : a graph
    @returns : the init graph
 *)
-val init: string graph -> (int,int) graph
+val init: string graph -> (int*int) graph
 
 (* @brief : loop de l'algo
    @param : a flow graph, a residual graph, the rate of flow, the source, the sink

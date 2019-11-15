@@ -17,11 +17,24 @@
 /home/commetud/GEI/OCaml/.opam/4.08.1/bin/ocamlc.opt -c -o tools.cmi tools.mli # cached
 # Target: ford_fulkerson.cmi, tags: { byte, compile, extension:mli, file:ford_fulkerson.mli, interf, ocaml, quiet }
 /home/commetud/GEI/OCaml/.opam/4.08.1/bin/ocamlc.opt -c -o ford_fulkerson.cmi ford_fulkerson.mli
-+ /home/commetud/GEI/OCaml/.opam/4.08.1/bin/ocamlc.opt -c -o ford_fulkerson.cmi ford_fulkerson.mli
-File "ford_fulkerson.mli", line 7, characters 26-41:
-7 | val init: string graph -> (int,int) graph
-                              ^^^^^^^^^^^^^^^
-Error: The type constructor graph expects 1 argument(s),
-       but is here applied to 2 argument(s)
-Command exited with code 2.
-# Compilation unsuccessful.
+# Target: ftest.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:ftest.cmo, file:ftest.ml, implem, ocaml, quiet }
+/home/commetud/GEI/OCaml/.opam/4.08.1/bin/ocamlc.opt -c -o ftest.cmo ftest.ml
+# Target: ford_fulkerson.ml.depends, tags: { extension:ml, file:ford_fulkerson.ml, ocaml, ocamldep, quiet }
+/home/commetud/GEI/OCaml/.opam/4.08.1/bin/ocamldep.opt -modules ford_fulkerson.ml > ford_fulkerson.ml.depends
+# Target: gfile.ml.depends, tags: { extension:ml, file:gfile.ml, ocaml, ocamldep, quiet }
+/home/commetud/GEI/OCaml/.opam/4.08.1/bin/ocamldep.opt -modules gfile.ml > gfile.ml.depends # cached
+# Target: gfile.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:gfile.cmo, file:gfile.ml, implem, ocaml, quiet }
+/home/commetud/GEI/OCaml/.opam/4.08.1/bin/ocamlc.opt -c -o gfile.cmo gfile.ml # cached
+# Target: tools.ml.depends, tags: { extension:ml, file:tools.ml, ocaml, ocamldep, quiet }
+/home/commetud/GEI/OCaml/.opam/4.08.1/bin/ocamldep.opt -modules tools.ml > tools.ml.depends # cached
+# Target: tools.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:tools.cmo, file:tools.ml, implem, ocaml, quiet }
+/home/commetud/GEI/OCaml/.opam/4.08.1/bin/ocamlc.opt -c -o tools.cmo tools.ml # cached
+# Target: ford_fulkerson.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:ford_fulkerson.cmo, file:ford_fulkerson.ml, implem, ocaml, quiet }
+/home/commetud/GEI/OCaml/.opam/4.08.1/bin/ocamlc.opt -c -o ford_fulkerson.cmo ford_fulkerson.ml
+# Target: graph.ml.depends, tags: { extension:ml, file:graph.ml, ocaml, ocamldep, quiet }
+/home/commetud/GEI/OCaml/.opam/4.08.1/bin/ocamldep.opt -modules graph.ml > graph.ml.depends # cached
+# Target: graph.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:graph.cmo, file:graph.ml, implem, ocaml, quiet }
+/home/commetud/GEI/OCaml/.opam/4.08.1/bin/ocamlc.opt -c -o graph.cmo graph.ml # cached
+# Target: ftest.byte, tags: { byte, dont_link_with, extension:byte, file:ftest.byte, link, ocaml, program, quiet }
+/home/commetud/GEI/OCaml/.opam/4.08.1/bin/ocamlc.opt graph.cmo tools.cmo ford_fulkerson.cmo gfile.cmo ftest.cmo -o ftest.byte
+# Compilation successful.
