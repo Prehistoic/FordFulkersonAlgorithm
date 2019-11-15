@@ -1,27 +1,32 @@
 open Tools
 open Graph
 
-let init graph = 
-    gmap graph (fun s -> (0,int_of_string s))
+let init graph =
+  gmap graph (fun s -> (0,int_of_string s))
 
-let rec isInList node nodes_list =
-    match nodes_list with
-    | [] -> false
-    | n :: rest -> (if n=node then true else isinList node rest)
+let rec isInList n l =
+  match l with
+  | [] -> false
+  | e :: rest -> (if e=n then true else isInList n rest)
 
-let rec dps graph marked_nodes current_node sink path =
-    if current_node = sink
-    then current_node :: path
+let rec filter_children l1 l2 children acu =
+  match children with
+  | [] -> acu
+  | (n,l) :: rest -> (if isInList n l1 || isInList n l2
+                  then filter_children l1 l2 rest acu
+                  else filter_children l1 l2 rest ((n,l)::acu))
+
+let rec parcours graph nodes_to_explore marked_nodes sink result =
+  match nodes_to_explore with
+  | [] -> []
+  | n :: rest ->
+    let nodes_to_explore = rest in
+    if n = sink then n :: result
     else
-        let rec get_clear_node children marked_nodes =
-            match children with
-            | [] -> 
-            | n :: rest -> (if isInList n marked_nodes 
-                            then get_clear_node rest marked_nodes 
-                            else n)
-        in
-        let children = out_arcs graph current_node
-        in
-            dps graph (current_node :: marked_nodes) (get_clear_node children marked_nodes) sink path
-            
-        
+      let children = out_arcs graph n in
+      let unmarked_children = filter_children nodes_to_explore marked_nodes children [] in
+      let nodes_to_explore =  List.append (List.map (fun (n,_) -> n) unmarked_children) nodes_to_explore in
+      parcours graph nodes_to_explore (n::marked_nodes) sink (n::result)
+
+let find_path graph source sink =
+  parcours graph [source] [] sink []

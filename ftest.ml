@@ -34,6 +34,15 @@ let () =
 
   let () = export graph_str formatted_file in
 
-  ()
+  () ;
 
-    
+  let path = find_path graph _source _sink in
+  let path_str = List.map string_of_int path in
+  let rec print_list = function
+    | [] -> Printf.printf ""
+    | n :: rest -> (if rest = []
+                    then Printf.printf "%s" n
+                    else Printf.printf "%s -> " n ;
+                    print_list rest)
+  in
+  print_list (List.rev path_str)
