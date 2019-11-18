@@ -13,3 +13,9 @@ let add_arc g id1 id2 n =
     | None -> new_arc g id1 id2 n
     | Some lbl -> new_arc g id1 id2 (lbl+n)
 ;;
+
+let add_arc_tuple g id1 id2 n =
+    match find_arc g id1 id2 with
+    | None -> new_arc g id1 id2 (n,n)
+    | Some (a,b) -> new_arc g id1 id2 (a+n,b)
+;;

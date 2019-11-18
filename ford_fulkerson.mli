@@ -19,3 +19,11 @@ val filter_children: id list -> id list -> 'a out_arcs -> 'a out_arcs -> 'a out_
 val parcours: 'a graph -> id list -> id list -> id -> id list -> id list
 
 val find_path: 'a graph -> id -> id -> id list
+
+val find_flow_variation: (int*int) graph -> id list -> int -> int
+
+val update_graph: (int*int) graph -> id list -> int -> (int*int) graph
+
+val create_temp_graph: (int*int) graph -> id -> int graph
+
+val parcours_temp: (int*int) graph -> id list -> id list -> int graph -> int graph
