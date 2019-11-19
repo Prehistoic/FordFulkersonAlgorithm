@@ -10,3 +10,7 @@ val clone_nodes: 'a graph -> 'b graph
 val add_arc: int graph -> id -> id -> int -> int graph
 
 val add_arc_tuple: (int*int) graph -> id -> id -> int -> (int*int) graph
+
+val add_rev_arc: (int*int) graph -> id -> id -> (int*int) -> (int*int) graph
+
+val add_arc_no_void: int graph -> id -> id -> int -> int graph

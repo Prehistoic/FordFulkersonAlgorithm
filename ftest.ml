@@ -36,26 +36,7 @@ let () =
 
   () ;
 
-  let path = find_path graph _source _sink in
-  let path_str = List.map string_of_int path in
-  let rec print_list = function
-    | [] -> Printf.printf ""
-    | n :: rest -> (if rest = []
-                    then Printf.printf "%s\n" n
-                    else Printf.printf "%s -> " n ;
-                    print_list rest)
-  in
-  print_list (path_str) ;
-
-  let path = find_path graph _source _sink in
-  let saturation = find_flow_variation graph path max_int in
-  let updated_graph = update_graph graph path saturation in
-  let updated_graph_str = gmap updated_graph (fun (a,b) -> "(" ^ string_of_int a ^"," ^ string_of_int b ^")") in
-  let () = write_file outfile updated_graph_str in
-
-  () ;
-
-  let temp_graph = create_temp_graph updated_graph _source in
+  let temp_graph = create_temp_graph graph in
   let temp_graph_str = gmap temp_graph (fun a -> string_of_int a) in
   let () = write_file outfile temp_graph_str in
   () ;
