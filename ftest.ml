@@ -24,8 +24,14 @@ let () =
   in
 
   (* Open file *)
-  let graph = init (from_file infile) in
-  let graph_str = gmap graph (fun (a,b) -> "(" ^ string_of_int a ^"," ^ string_of_int b ^")") in
+  let graph = from_file infile in
+  let graph0 = init graph in
+  let graph1 = create_temp_graph graph0 in
+  let path = find_path graph1 _source _sink in
+  let variation = find_flow_variation graph0 path max_int in
+  let result_graph = update_graph graph0 path variation in
+  let graph_str = gmap result_graph (fun (a,b) -> "(" ^ string_of_int a ^"," ^ string_of_int b ^")") in
+  
 
   (* Rewrite the graph that has been read. *)
   let () = write_file outfile graph_str in
@@ -34,10 +40,5 @@ let () =
 
   let () = export graph_str formatted_file in
 
-  () ;
-
-  let temp_graph = create_temp_graph graph in
-  let temp_graph_str = gmap temp_graph (fun a -> string_of_int a) in
-  let () = write_file outfile temp_graph_str in
   () ;
 

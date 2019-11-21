@@ -25,3 +25,7 @@ val find_flow_variation: (int*int) graph -> id list -> int -> int
 val update_graph: (int*int) graph -> id list -> int -> (int*int) graph
 
 val create_temp_graph: (int*int) graph -> int graph
+
+val algo_loop: (int*int) graph -> id -> id -> (int*int) graph
+
+val ford_fulkerson_algo: string graph -> id -> id -> (int*int) graph

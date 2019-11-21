@@ -117,6 +117,18 @@ let create_temp_graph graph =
     let temp_graph = gmap temp_graph (fun (a,b) -> b-a) in
     delete_void_arcs temp_graph
     
+let rec algo_loop graph source sink =
+    let residual_graph = create_temp_graph graph in
+    let path = find_path residual_graph source sink in
+    match path with
+    | [] -> graph
+    | n :: rest -> algo_loop (update_graph graph path (find_flow_variation graph path max_int)) source sink
+
+let ford_fulkerson_algo graph source sink =
+    let tmp_graph = init graph in
+    algo_loop tmp_graph source sink
+
+    
 
 
 
