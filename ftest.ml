@@ -7,7 +7,7 @@ let () =
   (* Check the number of command-line arguments *)
   if Array.length Sys.argv <> 6 then
     begin
-      Printf.printf "\nUsage: %s infile source sink outfile\n\n%!" Sys.argv.(0) ;
+      Printf.printf "\nUsage: %s infile source sink outfile formatted_file\n\n%!" Sys.argv.(0) ;
       exit 0
     end ;
 
