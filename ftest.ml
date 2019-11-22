@@ -25,11 +25,7 @@ let () =
 
   (* Open file *)
   let graph = from_file infile in
-  let graph0 = init graph in
-  let graph1 = create_temp_graph graph0 in
-  let path = find_path graph1 _source _sink in
-  let variation = find_flow_variation graph0 path max_int in
-  let result_graph = update_graph graph0 path variation in
+  let result_graph = ford_fulkerson_algo graph _source _sink in
   let graph_str = gmap result_graph (fun (a,b) -> "(" ^ string_of_int a ^"," ^ string_of_int b ^")") in
   
 

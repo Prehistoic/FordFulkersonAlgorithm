@@ -13,3 +13,19 @@ let add_arc g id1 id2 n =
     | None -> new_arc g id1 id2 n
     | Some lbl -> new_arc g id1 id2 (lbl+n)
 ;;
+
+let add_arc_tuple g id1 id2 n =
+    match find_arc g id1 id2 with
+    | None -> new_arc g id1 id2 (n,n)
+    | Some (a,b) -> new_arc g id1 id2 (a+n,b)
+;;
+
+let add_rev_arc g id1 id2 n =
+    match find_arc g id1 id2 with
+    | None -> g
+    | Some (a,b) -> new_arc g id2 id1 (b-a,b)
+;;
+
+let add_arc_no_void g id1 id2 lbl =
+    if lbl = 0 then g else new_arc g id1 id2 lbl
+;;

@@ -24,8 +24,10 @@ let () =
   in
 
   (* Open file *)
-  let graph = init (from_file infile) in
-  let graph_str = gmap graph (fun (a,b) -> "(" ^ string_of_int a ^"," ^ string_of_int b ^")") in
+  let graph = from_file infile in
+  let result_graph = ford_fulkerson_algo graph _source _sink in
+  let graph_str = gmap result_graph (fun (a,b) -> "(" ^ string_of_int a ^"," ^ string_of_int b ^")") in
+  
 
   (* Rewrite the graph that has been read. *)
   let () = write_file outfile graph_str in
@@ -36,13 +38,3 @@ let () =
 
   () ;
 
-  let path = find_path graph _source _sink in
-  let path_str = List.map string_of_int path in
-  let rec print_list = function
-    | [] -> Printf.printf ""
-    | n :: rest -> (if rest = []
-                    then Printf.printf "%s" n
-                    else Printf.printf "%s -> " n ;
-                    print_list rest)
-  in
-  print_list (List.rev path_str)
