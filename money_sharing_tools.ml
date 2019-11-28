@@ -1,3 +1,5 @@
+open Graph
+
 type path = string
 
 let read_amount line =
@@ -57,8 +59,60 @@ let get_diff path id due =
     final_amount_paid - due
 
 let rec create_list_person path number_of_people dueperperson id acu =
-    if id = number_of_people then acu
+    if id = number_of_people+1 then acu
     else create_list_person path number_of_people dueperperson (id+1) ((id, get_diff path id dueperperson) :: acu)
 
-(*let create_graph graph list_person id_sink =*)
+
+let rec create_nodes graph list_person =
+    match list_person with
+    | [] -> graph
+    | (id,_) :: rest -> create_nodes (new_node graph id) rest
+
+let rec create_arcs_to_source_or_sink graph list_person id_sink =
+    match list_person with
+    | [] -> graph
+    | (id,amount) :: rest -> (if amount<0 then create_arcs_to_source_or_sink (new_arc graph 0 id (-amount)) rest id_sink
+                              else create_arcs_to_source_or_sink (new_arc graph id id_sink amount) rest id_sink)
+
+let rec loop_on_people graph n id =
+    if n>0
+    then (if n=id 
+          then loop_on_people graph (n-1) id 
+          else (match find_arc graph id n with
+                | None -> loop_on_people (new_arc (new_arc graph id n max_int) n id max_int) (n-1) id
+                | Some x -> loop_on_people graph (n-1) id)
+         )
+    else graph
+
+let rec create_arcs_between_people graph list_person =
+    match list_person with
+    | [] -> graph
+    | (id,_) :: rest -> create_arcs_between_people (loop_on_people graph (List.length list_person) id) rest
+
+let create_graph graph list_person id_sink =
+    let graph = new_node (new_node graph 0) id_sink in
+    let graph = create_nodes graph list_person in
+    let graph = create_arcs_to_source_or_sink graph list_person id_sink in
+    let graph = create_arcs_between_people graph list_person in
+    graph
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
