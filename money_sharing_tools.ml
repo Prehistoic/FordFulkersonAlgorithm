@@ -1,4 +1,6 @@
 open Graph
+open Tools
+open Ford_fulkerson
 
 type path = string
 
@@ -95,6 +97,29 @@ let create_graph graph list_person id_sink =
     let graph = create_arcs_to_source_or_sink graph list_person id_sink in
     let graph = create_arcs_between_people graph list_person in
     graph
+
+let create_temp_graph_for_money_sharing graph =
+    let temp_graph = e_fold graph add_rev_arc_source_sink graph in
+    let temp_graph = gmap temp_graph (fun (a,b) -> (if b=max_int then b else b-a)) in
+    delete_void_arcs temp_graph
+
+let rec algo_loop_for_money_sharing graph source sink =
+    let residual_graph = create_temp_graph_for_money_sharing graph in
+    let path = find_path residual_graph source sink in
+    match path with
+    | [] -> graph
+    | n :: rest -> 
+        let variation = find_flow_variation graph path max_int in 
+        algo_loop_for_money_sharing (update_graph graph path variation) source sink
+
+let ford_fulkerson_for_money_sharing graph source sink =
+    let tmp_graph = init graph in
+    algo_loop_for_money_sharing tmp_graph source sink
+
+let remove_empty_arcs graph =
+    let result = clone_nodes graph in
+    let result = e_fold graph add_arc_no_void_string result in
+    result
 
 
 

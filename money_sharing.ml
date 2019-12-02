@@ -33,8 +33,9 @@ let () =
     let id_sink = (List.length person_list)+1 in
     let graph = create_graph empty_graph person_list id_sink in
     let graph = gmap graph (fun a -> string_of_int a) in
-    let result_graph = ford_fulkerson_algo graph id_source id_sink in
-    let graph_str = gmap result_graph (fun (a,b) -> "(" ^ string_of_int a ^"," ^ string_of_int b ^")") in
+    let result_graph = ford_fulkerson_for_money_sharing graph id_source id_sink in
+    let graph_str = gmap result_graph (fun (a,b) -> string_of_int a) in
+    let graph_str = remove_empty_arcs graph_str in
 
     let () = write_file outfile graph_str in
 

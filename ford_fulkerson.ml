@@ -48,6 +48,11 @@ let rec parcours graph nodes_to_explore marked_nodes sink result =
       let nodes_to_explore =  List.append (List.map (fun (n,_) -> n) unmarked_children) nodes_to_explore in
       parcours graph nodes_to_explore (n::marked_nodes) sink (n::result)
 
+(*
+	@brief : inverse le path et enlève les arcs n'existant pas
+  	@param : a graph, a path, an acu (a graph)
+  	@returns : a graph
+*)
 let rec correction_path graph path acu =
     match path with
     | [] -> []
@@ -118,7 +123,6 @@ let rec update_graph graph path saturation =
 *)
 let delete_void_arcs graph =
     e_fold graph add_arc_no_void (clone_nodes graph)
-  
 
 (*
 	@brief : create the residual graph
@@ -132,8 +136,8 @@ let create_temp_graph graph =
 
 (*
 	@brief : loop part of the ford_fulkerson algorithm
-  	@param : a graph, a source, a sink
-  	@returns : the result graph
+  	@param : a (int*int) graph, an id (source), an id (sink), an int
+  	@returns : a (int*int) graph
 *)  
 let rec algo_loop graph source sink debit =
     let residual_graph = create_temp_graph graph in
@@ -146,14 +150,13 @@ let rec algo_loop graph source sink debit =
 
 (*
 	@brief : execute ford_fulkerson algorithm on a graph
-  	@param : a graph, a source, a sink
-  	@returns : the result graph
+  	@param : a (int*int) graph, an id (source), an id (sink)
+  	@returns : a (int*int) graph
 *)  
 let ford_fulkerson_algo graph source sink =
     let tmp_graph = init graph in
     let debit = 0 in
     algo_loop tmp_graph source sink debit
-
     
 
 
