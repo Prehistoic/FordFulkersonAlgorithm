@@ -10,8 +10,8 @@ This project includes both an implementation of the Ford-Fulkerson algorithm and
 
 ### Compiling:
 
-- To compile the Ford-Fulkerson algorithm implementation : ocamlbuild ftest.byte
-- To compile the money sharing implementation : ocamlbuild money_sharing.byte
+- To compile the Ford-Fulkerson algorithm implementation : ocamlbuild src/ftest.byte
+- To compile the money sharing implementation : ocamlbuild src/money_sharing.byte
 
 ### Running:
 
