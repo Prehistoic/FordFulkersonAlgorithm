@@ -15,8 +15,10 @@ This project includes both an implementation of the Ford-Fulkerson algorithm and
 
 ### Running:
 
-- To run the Ford-Fulkerson algorithm implementation : ./ftest.byte infile id_source id_sink outfile formatted_file
-- To run the money sharing implementation : ./money_sharing.byte
+- To run the Ford-Fulkerson algorithm implementation :
+./ftest.byte infile id_source id_sink outfile formatted_file
+- To run the money sharing implementation :
+./money_sharing.byte infile number_of_people outfile formatted_file
 
 Some test graphs can be found in the graph_test repositery.
 You can then draw the graph using : dot -Tsvg formatted_file > PATH_TO_SVG_FILE.svg
