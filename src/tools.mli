@@ -32,6 +32,11 @@ val add_arc_tuple: (int*int) graph -> id -> id -> int -> (int*int) graph
 *)
 val add_rev_arc: (int*int) graph -> id -> id -> (int*int) -> (int*int) graph
 
+(*
+ * @brief : create an arc between a node representing a person and the source or the sink
+ * @param : a flow graph, a node, an other node, an (int*int) value
+ * @return : a flow graph
+*)
 val add_rev_arc_source_sink: (int*int) graph -> id -> id -> (int*int) -> (int*int) graph
 
 (*

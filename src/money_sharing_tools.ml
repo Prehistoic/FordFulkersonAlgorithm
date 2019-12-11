@@ -44,7 +44,7 @@ let get_diff path id due =
     let infile = open_in path in
 
     let rec loop l amount_paid =
-        try 
+        try
             let line = input_line infile in
             let line = String.trim line in
             let (l2, amount_paid2) =
@@ -78,8 +78,8 @@ let rec create_arcs_to_source_or_sink graph list_person id_sink =
 
 let rec loop_on_people graph n id =
     if n>0
-    then (if n=id 
-          then loop_on_people graph (n-1) id 
+    then (if n=id
+          then loop_on_people graph (n-1) id
           else (match find_arc graph id n with
                 | None -> loop_on_people (new_arc (new_arc graph id n max_int) n id max_int) (n-1) id
                 | Some x -> loop_on_people graph (n-1) id)
@@ -108,8 +108,8 @@ let rec algo_loop_for_money_sharing graph source sink =
     let path = find_path residual_graph source sink in
     match path with
     | [] -> graph
-    | n :: rest -> 
-        let variation = find_flow_variation graph path max_int in 
+    | n :: rest ->
+        let variation = find_flow_variation graph path max_int in
         algo_loop_for_money_sharing (update_graph graph path variation) source sink
 
 let ford_fulkerson_for_money_sharing graph source sink =
@@ -120,24 +120,3 @@ let remove_empty_arcs graph =
     let result = clone_nodes graph in
     let result = e_fold graph add_arc_no_void_string result in
     result
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
